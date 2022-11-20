@@ -1,9 +1,8 @@
-
-function CompanyList(props) {
+function CompanyList({ companies }) {
   return (
     <>
       <ul>
-        {props.companies.map(company => (
+        {companies.map(company => (
           <li>
             <h1>{company.name}</h1>
             <p>{company.description}</p>

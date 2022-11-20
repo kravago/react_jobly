@@ -7,6 +7,7 @@ import JoblyApi from './api';
 
 function App() {
   const [companies, setCompanies] = useState([]);
+  const [jobs, setJobs] = useState([]);
 
   useEffect(() => {
     const getCompanies = async () => {
@@ -16,10 +17,18 @@ function App() {
     getCompanies();
   }, []);
 
+  useEffect(() => {
+    const getJobs = async () => {
+      const req = await JoblyApi.getJobs();
+      setJobs(req);
+    }
+    getJobs();
+  }, []);
+
   return (
     <div className="App">
       <BrowserRouter>
-        <Routes companies={companies} />
+        <Routes companies={companies} jobs={jobs} />
       </BrowserRouter>
     </div>
   );
