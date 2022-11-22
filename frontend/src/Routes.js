@@ -7,21 +7,23 @@ import Jobs from './Jobs';
 
 function Routes({ companies, jobs }) {
   return (
-    <Switch>
-      <Route exact path="/">
-        <Homepage />
-      </Route>
-      <Route exact path="/companies">
-        <CompanyList companies={companies}/>
-      </Route>
-      <Route exact path="/companies/:handle">
-        <Company />
-      </Route>
-      <Route>
-        <Jobs jobs={jobs}/>
-      </Route>
-      <Redirect to="/" />
-    </Switch>
+    <div>
+      <Switch>
+        <Route exact path="/">
+          <Homepage />
+        </Route>
+        <Route exact path="/companies">
+          <CompanyList companies={companies}/>
+        </Route>
+        <Route exact path="/companies/:handle">
+          <Company />
+        </Route>
+        <Route exact path="/jobs" >
+          <Jobs jobs={jobs}/>
+        </Route>
+        <Redirect to="/" />
+      </Switch>
+    </div>
   );
 }
 
