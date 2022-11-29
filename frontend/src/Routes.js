@@ -4,6 +4,9 @@ import Homepage from './Homepage';
 import Company from './Company';
 import CompanyList from './CompanyList';
 import Jobs from './Jobs';
+import Login from './Login';
+import Profile from './Profile';
+import Signup from './Signup';
 
 function Routes({ companies, jobs }) {
   return (
@@ -18,8 +21,17 @@ function Routes({ companies, jobs }) {
         <Route exact path="/companies/:handle">
           <Company />
         </Route>
-        <Route exact path="/jobs" >
+        <Route exact path="/jobs">
           <Jobs jobs={jobs}/>
+        </Route>
+        <Route exact path="/login">
+          <Login />
+        </Route>
+        <Route exact path="/profile">
+          <Profile />
+        </Route>"
+        <Route exact path="/signup">
+          <Signup />
         </Route>
         <Redirect to="/" />
       </Switch>
