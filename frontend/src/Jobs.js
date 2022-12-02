@@ -1,6 +1,17 @@
-import React from 'react';
+import React, {useEffect, useState} from 'react';
+import JoblyApi from './api';
 
-function Jobs({ jobs }) {
+function Jobs() {
+  const [jobs, setJobs] = useState([]);
+
+  useEffect(() => {
+    const getJobs = async () => {
+      const req = await JoblyApi.getJobs();
+      setJobs(req);
+    }
+    getJobs();
+  }, []);
+
     return (
       <>
         <ul>
