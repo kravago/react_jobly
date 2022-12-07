@@ -1,6 +1,7 @@
 import React, {useEffect, useState} from 'react';
 import SearchForm from './SearchForm';
 import JoblyApi from './api';
+import CompanyCard from './CompanyCard';
 
 function CompanyList() {
   const [companies, setCompanies] = useState([]);
@@ -20,14 +21,13 @@ function CompanyList() {
   return (
     <>
       <SearchForm updateCompanies={updateCompanies}/>
-      <ul>
+      <div>
         {companies.map(company => (
-          <li>
-            <h1>{company.name}</h1>
-            <p>{company.description}</p>
-          </li>
+          <div>
+            <CompanyCard company={company} />
+          </div>
         ))}
-      </ul>
+      </div>
     </>
   )
 }
