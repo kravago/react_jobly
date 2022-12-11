@@ -1,11 +1,11 @@
 import React from 'react';
-import CompanyDetail from './CompanyDetail';
 
 function CompanyCard({company}) {
     return (
-        <>
-           <CompanyDetail company={company} />
-        </>
+        <div style={{border: '2px solid black'}} >
+            <h1>{company.name}</h1>
+            <p>{company.description}</p>
+        </div>
     )
 }
 
