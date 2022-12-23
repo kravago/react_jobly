@@ -4,34 +4,34 @@ import Homepage from './Homepage';
 import Company from './Company';
 import CompanyList from './CompanyList';
 import JobList from './JobList';
-import Login from './Login';
+import LoginForm from './LoginForm';
 import Profile from './Profile';
-import Signup from './Signup';
+import SignupForm from './SignupForm';
 
-function Routes({ companies, jobs }) {
+function Routes({ login, register }) {
   return (
     <div>
       <Switch>
         <Route exact path="/">
-          <Homepage />
+          <Homepage/>
         </Route>
         <Route exact path="/companies">
-          <CompanyList companies={companies}/>
+          <CompanyList/>
         </Route>
         <Route exact path="/companies/:handle">
-          <Company />
+          <Company/>
         </Route>
         <Route exact path="/jobs">
-          <JobList jobs={jobs}/>
+          <JobList/>
         </Route>
         <Route exact path="/login">
-          <Login />
+          <LoginForm login={login}/>
         </Route>
         <Route exact path="/profile">
-          <Profile />
+          <Profile/>
         </Route>"
         <Route exact path="/signup">
-          <Signup />
+          <SignupForm register={register}/>
         </Route>
         <Redirect to="/" />
       </Switch>

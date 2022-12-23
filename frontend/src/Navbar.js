@@ -7,7 +7,9 @@ function NavBar() {
       <nav>
         <NavLink to="/">Jobly</NavLink> |
         <NavLink to="/companies">Companies</NavLink> |
-        <NavLink to="/jobs">Jobs</NavLink>
+        <NavLink to="/jobs">Jobs</NavLink> |
+        <NavLink to="/login">Login</NavLink> |
+        <NavLink to="/signup">Sign Up</NavLink>
       </nav>
     </div>
   );
