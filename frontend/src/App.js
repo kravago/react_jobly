@@ -4,23 +4,47 @@ import { BrowserRouter } from 'react-router-dom';
 import Routes from './Routes';
 import NavBar from './Navbar';
 import JoblyApi from './api';
+import jwt from 'jsonwebtoken';
 
 function App() {
-  const [currentUser, setCurrentUser] = useState('');
-  const [currentToken, setCurrentToken] = useState('');
+  const INITIAL_STATE = '';
+  const [currentUser, setCurrentUser] = useState(INITIAL_STATE);
+  const [currentToken, setCurrentToken] = useState(INITIAL_STATE);
+
   const login = async (loginFormData) => {
     const res = await JoblyApi.login(loginFormData);
     setCurrentToken(res.token);
   }
+
   const register = async (signupFormData) => {
     const res = await JoblyApi.register(signupFormData);
     setCurrentToken(res.token);
   }
+
+  const logout = async () => {
+    setCurrentToken(INITIAL_STATE);
+    setCurrentUser(INITIAL_STATE);
+  }
+
+  useEffect(() => {
+    // get user info each time there is a login
+    if (currentToken) {
+      const {username} = jwt.decode(currentToken);
+      setCurrentUser(username);
+    }
+  }, [currentToken]);
+
   return (
     <div className="App">
       <BrowserRouter>
-        <NavBar />
-        <Routes login={login} register={register}/>
+        <NavBar 
+          currentUser={currentUser} 
+          logout={logout}
+        />
+        <Routes 
+          login={login} 
+          register={register}
+        />
       </BrowserRouter>
     </div>
   );
