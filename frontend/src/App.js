@@ -1,15 +1,16 @@
 import React, {useState, useEffect} from 'react';
-import './App.css';
 import { BrowserRouter } from 'react-router-dom';
+import jwt from 'jsonwebtoken';
+import './App.css';
 import Routes from './Routes';
 import NavBar from './Navbar';
 import JoblyApi from './api';
-import jwt from 'jsonwebtoken';
+import useLocalStorage from './useLocalStorage';
 
 function App() {
   const INITIAL_STATE = '';
   const [currentUser, setCurrentUser] = useState(INITIAL_STATE);
-  const [currentToken, setCurrentToken] = useState(INITIAL_STATE);
+  const [currentToken, setCurrentToken] = useLocalStorage('token');
 
   const login = async (loginFormData) => {
     const res = await JoblyApi.login(loginFormData);
@@ -22,7 +23,7 @@ function App() {
   }
 
   const logout = async () => {
-    setCurrentToken(INITIAL_STATE);
+    setCurrentToken(null);
     setCurrentUser(INITIAL_STATE);
   }
 

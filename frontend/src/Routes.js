@@ -33,7 +33,7 @@ function Routes({ login, register }) {
         <Route exact path="/signup">
           <SignupForm register={register}/>
         </Route>
-        <Redirect to="/" />
+      <Redirect to="/" />
       </Switch>
     </div>
   );
