@@ -1,9 +1,11 @@
 import React, {useState} from "react";
+import {useHistory} from "react-router-dom";
 import JoblyApi from './api';
 
 function SearchForm({updateCompanies}) {
     const INITIAL_STATE = '';
     const [search, setSearch] = useState(INITIAL_STATE);
+    const history = useHistory();
     
     const handleChange = (e) => {
         const {value} = e.target;
@@ -15,6 +17,7 @@ function SearchForm({updateCompanies}) {
         const req = await JoblyApi.getSearchedCompanies(search);
         updateCompanies(req);
         setSearch(INITIAL_STATE);
+        history.push("/");
     }
 
     return (
