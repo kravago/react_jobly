@@ -45,6 +45,7 @@ function App() {
         <Routes 
           login={login} 
           register={register}
+          token={currentToken}
         />
       </BrowserRouter>
     </div>

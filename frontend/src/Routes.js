@@ -8,7 +8,7 @@ import LoginForm from './LoginForm';
 import Profile from './Profile';
 import SignupForm from './SignupForm';
 
-function Routes({ login, register }) {
+function Routes({ login, register, token }) {
   return (
     <div>
       <Switch>
@@ -16,13 +16,13 @@ function Routes({ login, register }) {
           <Homepage/>
         </Route>
         <Route exact path="/companies">
-          <CompanyList/>
+          {token ? <CompanyList/> : <Redirect to='/login'/>}
         </Route>
         <Route exact path="/companies/:handle">
-          <Company/>
+          {token ? <Company/> : <Redirect to='/login'/>}
         </Route>
         <Route exact path="/jobs">
-          <JobList/>
+          {token ? <JobList/> : <Redirect to='/login'/>}
         </Route>
         <Route exact path="/login">
           <LoginForm login={login}/>
