@@ -28,12 +28,12 @@ function Routes({ login, register, token }) {
           <LoginForm login={login}/>
         </Route>
         <Route exact path="/profile">
-          <Profile/>
+          {token ? <Profile/> : <Redirect to='/login'/>}
         </Route>"
         <Route exact path="/signup">
           <SignupForm register={register}/>
         </Route>
-      <Redirect to="/" />
+        <Redirect to="/" />
       </Switch>
     </div>
   );

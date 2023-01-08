@@ -2,15 +2,16 @@ import React from "react";
 import { NavLink } from 'react-router-dom';
 
 function NavBar({ currentUser, logout}) {
-  const loginSignup = (
+  const loginLinks = (
     <nav>
         <NavLink to="/login">Login</NavLink> |
         <NavLink to="/signup">Sign Up</NavLink>
     </nav>);
 
-  const logoutPrompt = (
+  const userLinks = (
     <nav>
-      <p>Welcome {currentUser}</p>
+      <p>Welcome {currentUser}</p> |
+      <NavLink to="/profile">Profile</NavLink> |
       <NavLink to="/" onClick={logout}>Logout</NavLink>
     </nav>
   )
@@ -22,7 +23,7 @@ function NavBar({ currentUser, logout}) {
         <NavLink to="/companies">Companies</NavLink> |
         <NavLink to="/jobs">Jobs</NavLink>
       </nav>
-      {currentUser ? logoutPrompt: loginSignup}
+      {currentUser ? userLinks: loginLinks}
     </div>
   );
 }
