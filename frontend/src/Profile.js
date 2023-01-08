@@ -4,19 +4,13 @@ import JoblyApi from './api';
 import userContext from './userContext';
 
 function Profile() {
-  const INITIAL_STATE = {
-    firstName: "",
-    lastName: "",
-    email: "",
-    password: ""
-  }
   const history = useHistory();
-  const userInfo = useContext(userContext);
+  const {userInfo, currentUser} = useContext(userContext);
   const [formData, setFormData] = useState({
     firstName: userInfo.firstName,
     lastName: userInfo.lastName,
     email: userInfo.email,
-    password: userInfo.password
+    password: ""
   });
 
   // useEffect(() => {
@@ -30,9 +24,13 @@ function Profile() {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    // JoblyApi.updateUser(formData);
-    setFormData(INITIAL_STATE);
-    history.push('/');
+    try {
+      const res = await JoblyApi.updateUser(formData, currentUser);
+      alert('Update successful!');
+      history.push('/');
+    } catch (e) {
+      alert(e);
+    }
   }
     return (
       <>

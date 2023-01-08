@@ -16,8 +16,12 @@ function App() {
   const [currentToken, setCurrentToken] = useLocalStorage('token');
 
   const login = async (loginFormData) => {
-    const res = await JoblyApi.login(loginFormData);
-    setCurrentToken(res.token);
+    try {
+      const res = await JoblyApi.login(loginFormData);
+      setCurrentToken(res.token);
+    } catch (e) {
+      alert(e);
+    }
   }
 
   const register = async (signupFormData) => {
@@ -48,7 +52,7 @@ function App() {
   return (
     <div className="App">
       <BrowserRouter>
-        <userContext.Provider value={userInfo}>
+        <userContext.Provider value={{userInfo, currentUser}}>
           <NavBar 
             currentUser={currentUser} 
             logout={logout}
