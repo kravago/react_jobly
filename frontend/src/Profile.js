@@ -3,9 +3,13 @@ import {useHistory} from 'react-router-dom';
 import JoblyApi from './api';
 import userContext from './userContext';
 
+
 function Profile() {
-  const history = useHistory();
+  // const history = useHistory();
   const {userInfo, currentUser} = useContext(userContext);
+
+  console.log(userInfo, currentUser);
+  
   const [formData, setFormData] = useState({
     firstName: userInfo.firstName,
     lastName: userInfo.lastName,
@@ -13,21 +17,16 @@ function Profile() {
     password: ""
   });
 
-  // useEffect(() => {
-
-  // })
-
   const handleChange = (e) => {
     const {name, value} = e.target;
-    setFormData(formData => ({...formData, [name]: value}));
+    setFormData({...formData, [name]: value});
   }
 
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
       const res = await JoblyApi.updateUser(formData, currentUser);
-      alert('Update successful!');
-      history.push('/');
+      console.log('Update successful!', res);
     } catch (e) {
       alert(e);
     }

@@ -14,13 +14,16 @@ function App() {
   const [currentUser, setCurrentUser] = useState(INITIAL_STATE);
   const [userInfo, setUserInfo] = useState(USER_INIT_STATE);
   const [currentToken, setCurrentToken] = useLocalStorage('token');
+  const [isLoading, setIsLoading] = useState(true);
 
   const login = async (loginFormData) => {
     try {
       const res = await JoblyApi.login(loginFormData);
       setCurrentToken(res.token);
+      console.log("login success", res)
     } catch (e) {
       alert(e);
+      console.error("Problem in login", e)
     }
   }
 
@@ -40,14 +43,21 @@ function App() {
     const getUserInfo = async (username) => {
       JoblyApi.token = currentToken;
       const res = await JoblyApi.getUser(username);
+      console.log("setUserInfo is called", userInfo)
       setUserInfo(res);
     }
     if (currentToken) {
       const {username} = jwt.decode(currentToken);
+      console.log("setCurrentUser is called", currentUser)
       setCurrentUser(username);
       getUserInfo(username);
     }
+    setIsLoading(false);
   }, [currentToken]);
+
+  if (isLoading) {
+    return (<div>LOADING</div>);
+  }
 
   return (
     <div className="App">
