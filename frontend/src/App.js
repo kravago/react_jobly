@@ -14,6 +14,7 @@ function App() {
   const [currentUser, setCurrentUser] = useState(INITIAL_STATE);
   const [userInfo, setUserInfo] = useState(USER_INIT_STATE);
   const [currentToken, setCurrentToken] = useLocalStorage('token');
+  const [appliedIds, setAppliedIds] = useState(new Set());
   const [isLoading, setIsLoading] = useState(true);
 
   const login = async (loginFormData) => {
@@ -43,14 +44,19 @@ function App() {
     const getUserInfo = async (username) => {
       JoblyApi.token = currentToken;
       const res = await JoblyApi.getUser(username);
-      console.log("setUserInfo is called", userInfo)
       setUserInfo(res);
+      setAppliedIds(new Set(res.applications));
     }
-    if (currentToken) {
-      const {username} = jwt.decode(currentToken);
-      console.log("setCurrentUser is called", currentUser)
+
+    // check if there is a token
+    const token_check = localStorage.getItem('token');
+    if (token_check) {
+      const {username} = jwt.decode(token_check);
+      console.log("username is:", username);
       setCurrentUser(username);
+      console.log("currentUser is:", currentUser);
       getUserInfo(username);
+      console.log("userinfo:", userInfo);
     }
     setIsLoading(false);
   }, [currentToken]);
@@ -59,10 +65,24 @@ function App() {
     return (<div>LOADING</div>);
   }
 
+  const applyToJobId = async (jobId) => {
+    console.log("job id is:", jobId);
+    const res = await JoblyApi.applyToJob(currentUser, jobId);
+    if (appliedIds.has(res.applied)) {
+      return;
+    } else {
+      appliedIds.add(res.applied);
+    }
+  }
+
+  const checkApplied = (jobId) => {
+    return appliedIds.has(jobId);
+  }
+
   return (
     <div className="App">
       <BrowserRouter>
-        <userContext.Provider value={{userInfo, currentUser}}>
+        <userContext.Provider value={{userInfo, currentUser, checkApplied, appliedIds, applyToJobId}}>
           <NavBar 
             currentUser={currentUser} 
             logout={logout}

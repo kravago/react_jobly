@@ -1,15 +1,9 @@
-import React, {useState, useContext, useEffect} from 'react';
-import {useHistory} from 'react-router-dom';
+import React, {useState, useContext} from 'react';
 import JoblyApi from './api';
 import userContext from './userContext';
 
-
 function Profile() {
-  // const history = useHistory();
   const {userInfo, currentUser} = useContext(userContext);
-
-  console.log(userInfo, currentUser);
-  
   const [formData, setFormData] = useState({
     firstName: userInfo.firstName,
     lastName: userInfo.lastName,

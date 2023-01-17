@@ -1,4 +1,4 @@
-import React, {useEffect, useState} from 'react';
+import React, {useEffect, useState, useContext} from 'react';
 import JoblyApi from './api';
 import JobCard from './JobCard';
 
@@ -7,17 +7,16 @@ function Jobs() {
 
   useEffect(() => {
     const getJobs = async () => {
-      const req = await JoblyApi.getJobs();
-      setJobs(req);
+      const jobs = await JoblyApi.getJobs();
+      setJobs(jobs);
     }
     getJobs();
   }, []);
 
     return (
       <>
-        {jobs.map(job => (
-          <JobCard job={job}/>
-        ))}
+        {jobs.map(job => (<JobCard job={job} key={job.id}/>)
+        )}
       </>
     )
   }
