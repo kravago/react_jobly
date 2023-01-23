@@ -52,11 +52,8 @@ function App() {
     const token_check = localStorage.getItem('token');
     if (token_check) {
       const {username} = jwt.decode(token_check);
-      console.log("username is:", username);
       setCurrentUser(username);
-      console.log("currentUser is:", currentUser);
       getUserInfo(username);
-      console.log("userinfo:", userInfo);
     }
     setIsLoading(false);
   }, [currentToken]);
