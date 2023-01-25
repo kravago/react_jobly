@@ -1,6 +1,8 @@
 import React, {useEffect, useState, useContext} from 'react';
 import userContext from './userContext';
-
+import Button from 'react-bootstrap/Button';
+import Card from 'react-bootstrap/Card';
+import 'bootstrap/dist/css/bootstrap.min.css';
 
 function CompanyJob({job, company}) {
   const {appliedIds, checkApplied, applyToJobId} = useContext(userContext);
@@ -18,12 +20,28 @@ function CompanyJob({job, company}) {
       setAppliedState(true);
     }
   }
+
+  const cardStyle = {
+    width: '18rem', // make sure the parent is full screen 
+    height: '100%' // so that the content will center correctly
+  }
+  const divStyle = {
+    display: 'flex',
+    alignItems: 'center',
+    justifyContent: 'center',
+    width: '100%', // make sure the parent is full screen 
+    height: '100%'
+  }
   return (
-    <div>
-      <h1>Title: {job.title}</h1>
-      <p>Salary: {job.salary}</p>
-      <p>Equity: {job.equity}</p>
-      <button onClick={handleApply}>{appliedState? "Applied": "Apply"}</button>
+    <div style={divStyle}>
+      <Card style={cardStyle}>
+        <Card.Body>
+          <Card.Title>{job.title}</Card.Title>
+          <Card.Text>Salary: {job.salary}</Card.Text>
+          <Card.Text>Equity: {job.equity}</Card.Text>
+          <Button onClick={handleApply}>{appliedState? "Applied": "Apply"}</Button>
+        </Card.Body>
+      </Card>
     </div>)
 }
 
