@@ -1,12 +1,14 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState, useContext } from 'react';
 import {useParams} from 'react-router-dom';
 import JoblyApi from './api';
+import userContext from './userContext';
+import CompanyJob from './CompanyJob';
 
 function Company() {
   const {handle} = useParams();
   const [company, setCompany] = useState('');
   const [jobs, setJobs] = useState('');
-  console.log("jobs", jobs);
+  const {appliedIds, checkApplied, applyToJobId} = useContext(userContext);
 
   useEffect(function setCompanyInfo() {
     async function fetchCompanyInfo(handle) {
@@ -16,25 +18,13 @@ function Company() {
     }
     fetchCompanyInfo(handle);
   }, [handle]);
-  const company_details = (
-    <>
-      <h1>{company.name}</h1>
-      <p>{company.description}</p>
-    </>
-  )
 
   return (
       <>
         <h1>{company.name}</h1>
         <p>{company.description}</p>
       <div>
-        {jobs? jobs.map(job => (
-          <div>
-            <h1>Title: {job.title}</h1>
-            <p>Salary: {job.salary}</p>
-            <p>Equity: {job.equity}</p>
-          </div>
-        )): <>Loading</>}
+        {jobs? jobs.map(job => (<CompanyJob job={job} company={company}/>)): <>Loading</>}
       </div>
       </>
   )

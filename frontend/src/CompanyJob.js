@@ -1,14 +1,15 @@
-import React, {useContext, useEffect, useState} from 'react';
+import React, {useEffect, useState, useContext} from 'react';
 import userContext from './userContext';
 
-function JobCard({job}) {
+
+function CompanyJob({job, company}) {
   const {appliedIds, checkApplied, applyToJobId} = useContext(userContext);
   const [appliedState, setAppliedState] = useState(false);
-  
+
   useEffect(() => {
     setAppliedState(checkApplied(job.id))
   }, [appliedIds]);
-
+  
   const handleApply = async () => {
     if (checkApplied(job.id)) {
       return;
@@ -18,12 +19,12 @@ function JobCard({job}) {
     }
   }
   return (
-    <>
-      <h1>{job.title}</h1>
-      <p>{job.salary}</p>   
+    <div>
+      <h1>Title: {job.title}</h1>
+      <p>Salary: {job.salary}</p>
+      <p>Equity: {job.equity}</p>
       <button onClick={handleApply}>{appliedState? "Applied": "Apply"}</button>
-    </>
-  );
+    </div>)
 }
 
-export default JobCard;
+export default CompanyJob;
