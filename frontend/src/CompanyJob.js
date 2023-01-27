@@ -22,14 +22,15 @@ function CompanyJob({job, company}) {
   }
 
   const cardStyle = {
-    width: '18rem', // make sure the parent is full screen 
-    height: '100%' // so that the content will center correctly
+    width: '18rem', 
+    height: '100%',
+    marginTop: '10px'
   }
   const divStyle = {
     display: 'flex',
     alignItems: 'center',
     justifyContent: 'center',
-    width: '100%', // make sure the parent is full screen 
+    width: '100%',
     height: '100%'
   }
   return (

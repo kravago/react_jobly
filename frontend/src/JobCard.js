@@ -1,5 +1,8 @@
 import React, {useContext, useEffect, useState} from 'react';
 import userContext from './userContext';
+import Button from 'react-bootstrap/Button';
+import Card from 'react-bootstrap/Card';
+import 'bootstrap/dist/css/bootstrap.min.css';
 
 function JobCard({job}) {
   const {appliedIds, checkApplied, applyToJobId} = useContext(userContext);
@@ -17,12 +20,30 @@ function JobCard({job}) {
       setAppliedState(true);
     }
   }
+
+  const cardStyle = {
+    width: '20rem', 
+    height: '100%',
+    marginTop: '10px',
+    textAlign: 'left'
+  }
+  const divStyle = {
+    display: 'flex',
+    alignItems: 'center',
+    justifyContent: 'center',
+    width: '100%',
+    height: '100%'
+  }
   return (
-    <>
-      <h1>{job.title}</h1>
-      <p>{job.salary}</p>   
-      <button onClick={handleApply}>{appliedState? "Applied": "Apply"}</button>
-    </>
+    <div style={divStyle}>
+      <Card style={cardStyle}>
+        <Card.Header className="bg-dark text-white">{job.title}</Card.Header>
+        <Card.Body>
+          <Card.Text>Salary: {job.salary}</Card.Text>
+          <Button onClick={handleApply}>{appliedState? "Applied": "Apply"}</Button>
+        </Card.Body>
+      </Card>
+    </div>
   );
 }
 

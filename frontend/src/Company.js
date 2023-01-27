@@ -8,7 +8,6 @@ function Company() {
   const {handle} = useParams();
   const [company, setCompany] = useState('');
   const [jobs, setJobs] = useState('');
-  const {appliedIds, checkApplied, applyToJobId} = useContext(userContext);
 
   useEffect(function setCompanyInfo() {
     async function fetchCompanyInfo(handle) {
